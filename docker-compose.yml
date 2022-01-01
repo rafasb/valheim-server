@@ -1,0 +1,20 @@
+version: '3.9'
+
+services:
+
+  valheim-server:
+    image: lloesche/valheim-server:latest
+    container_name: valheim-server
+    #Los puertos a los cuales se acceso son 2466 al 2468. Deben abrirse en el firewall
+    ports:
+      - 2466-2468:2456-2458/udp
+    volumes:
+      #Esto permite acceder a los ficheros del save del juego
+      - ./config:/config
+    environment:
+      #Definimos el nombre del server, del mundo y el password de acceso
+      - SERVER_NAME=AbandonGamersValheim
+      - WORLD_NAME=AbandonGamers
+      - SERVER_PASS=************
+    #Permite que se arranque el servicio al reiniciar el servidor.
+    restart: unless-stopped
